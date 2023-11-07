@@ -1,0 +1,84 @@
+/* src/assets/css/BudgetTracker.css */
+.budget-tracker {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 2rem 0;
+  }
+  
+  .budget-tracker h2 {
+    color: #333;
+    margin-bottom: 1.5rem;
+  }
+  
+  .budget-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .budget-item:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+  
+  .budget-item-title {
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  .budget-item-amount {
+    font-weight: bold;
+    color: #646cff;
+  }
+  
+  .budget-progress {
+    width: 100%;
+    background-color: #e7e7e7;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 0.5rem;
+  }
+  
+  .budget-progress-bar {
+    height: 10px;
+    border-radius: 8px;
+    transition: width 0.4s ease;
+  }
+  
+  .budget-progress-bar-50 {
+    width: 50%;
+    background-color: #ffda47;
+  }
+  
+  .budget-progress-bar-75 {
+    width: 75%;
+    background-color: #f86c6b;
+  }
+  
+  .budget-progress-bar-100 {
+    width: 100%;
+    background-color: #28a745;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .budget-tracker {
+      padding: 1rem;
+    }
+  
+    .budget-item {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .budget-progress {
+      margin-top: 0.25rem;
+    }
+  }
+  

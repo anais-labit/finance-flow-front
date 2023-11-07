@@ -1,0 +1,50 @@
+/* src/assets/css/TransactionItem.css */
+.transaction-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem 0;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s;
+}
+
+.transaction-item:hover {
+  background-color: #f4f4f4;
+}
+
+.transaction-item-details {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.transaction-item-icon {
+  width: 2rem;
+  height: 2rem;
+  margin-right: 1rem;
+  background-color: #ececec;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.transaction-item-description {
+  flex-grow: 1;
+}
+
+.transaction-item-amount {
+  font-weight: bold;
+  margin-left: 1rem;
+}
+
+.transaction-item-negative {
+  color: #ff3b30;
+}
+
+.transaction-item-positive {
+  color: #4cd964;
+}
