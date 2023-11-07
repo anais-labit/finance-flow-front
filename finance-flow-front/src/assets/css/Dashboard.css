@@ -1,0 +1,51 @@
+/* src/assets/css/Dashboard.css */
+.dashboard {
+    background-color: #f8f9fa;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .dashboard h2 {
+    color: #333;
+    margin-bottom: 2rem;
+  }
+  
+  /* Si vous avez d'autres composants dans le tableau de bord, vous pouvez ajouter des styles spécifiques ici. Par exemple: */
+  .dashboard-widget {
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Vous pouvez également ajouter des styles pour gérer la disposition des widgets sur des écrans plus larges */
+  @media (min-width: 768px) {
+    .dashboard {
+      display: flex;
+      justify-content: space-between;
+      padding: 2rem;
+    }
+  
+    .dashboard-widget {
+      flex: 1;
+      /* Ajoutez des marges entre les widgets si nécessaire */
+      margin-right: 1rem;
+    }
+  
+    /* Assurez-vous que le dernier widget n'ait pas de marge à droite */
+    .dashboard-widget:last-child {
+      margin-right: 0;
+    }
+  }
+  
+  /* Pour les très petits écrans, vous pouvez réduire la taille de la marge et du padding */
+  @media (max-width: 576px) {
+    .dashboard {
+      padding: 1rem;
+    }
+  
+    .dashboard h2 {
+      font-size: 1.5rem;
+    }
+  }
+  

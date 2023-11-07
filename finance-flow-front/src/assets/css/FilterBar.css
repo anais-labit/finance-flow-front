@@ -1,0 +1,44 @@
+/* src/assets/css/FilterBar.css */
+.filter-bar {
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.filter-bar input,
+.filter-bar select {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 0.5rem;
+  font-size: 1rem;
+  color: #333;
+}
+
+.filter-bar input[type="date"],
+.filter-bar input[type="number"] {
+  max-width: 200px;
+}
+
+.filter-bar select {
+  min-width: 200px;
+}
+
+/* Style pour les petits écrans, pour s'assurer que les filtres ne sont pas trop serrés */
+@media (max-width: 576px) {
+  .filter-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-bar input,
+  .filter-bar select {
+    width: 100%;
+    box-sizing: border-box; /* Assurez-vous que padding et border ne dépassent pas la largeur */
+  }
+}
