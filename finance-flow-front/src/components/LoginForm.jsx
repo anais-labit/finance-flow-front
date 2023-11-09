@@ -21,8 +21,12 @@ const LoginForm = ({ setIsConnected, setIsRegistered }) => {
       }
     );
     let jsonResponse = await result.json();
-    // console.log(jsonResponse);
-    // setIsConnected(true);
+    
+    if (jsonResponse["success"]) {
+      setIsConnected(true);
+    } else {
+      console.error("La requête a échoué avec le statut : " + result.status);
+    }
   };
 
   return (

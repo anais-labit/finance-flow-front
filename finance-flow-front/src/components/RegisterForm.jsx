@@ -23,7 +23,7 @@ const RegistrationForm = ({ setIsRegistered, onSignInClick }) => {
       "http://localhost/plateforme/finance-flow-back/index.php",
       {
         method: "POST",
-        body: formData,
+        body: data,
         mode: "cors",
       }
     );
@@ -31,7 +31,6 @@ const RegistrationForm = ({ setIsRegistered, onSignInClick }) => {
     if (result.ok) {
       let jsonResponse = await result.json();
       console.log(jsonResponse);
-      // Appel de la fonction onSignInClick si l'inscription est réussie
       onSignInClick();
     } else {
       console.error("La requête a échoué avec le statut : " + result.status);
