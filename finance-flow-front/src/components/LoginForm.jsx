@@ -19,9 +19,9 @@ function LoginForm({ setIsConnected }) {
         mode: "cors",
       }
     );
-    let jsonResponse = await response.text();
+    let jsonResponse = await response.json();
     // console.log(jsonResponse);
-    setIsConnected(true);
+    // setIsConnected(true);
   }
 
   return (
