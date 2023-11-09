@@ -1,17 +1,18 @@
 import React, { useState } from "react";
-import "../assets/css/Login.css";
+import "../assets/css/LoginForm.css";
 
-function LoginForm({ setIsConnected }) {
+const LoginForm = ({ setIsConnected, setIsRegistered }) => {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
 
-  async function handleLogin() {
+  const handleLogin = async () => {
     let data = new FormData();
     data.append("login", login);
     data.append("password", password);
     data.append("submitLoginForm", "");
 
-    let response = await fetch(
+    let result = await fetch(
       "http://localhost/plateforme/finance-flow-back/index.php",
       {
         method: "POST",
@@ -19,10 +20,10 @@ function LoginForm({ setIsConnected }) {
         mode: "cors",
       }
     );
-    let jsonResponse = await response.json();
+    let jsonResponse = await result.json();
     // console.log(jsonResponse);
     // setIsConnected(true);
-  }
+  };
 
   return (
     <div className="login-form">
@@ -70,10 +71,18 @@ function LoginForm({ setIsConnected }) {
         </div>
       </form>
       <p className="text-center">
-        <a href="inscription.php">Sign Up</a>
+        <button
+          type="button"
+          name="signUpBtn"
+          className="btn btn-primary btn-block"
+          id="signUpBtn"
+          onClick={() => setIsRegistered(false)}
+        >
+          Sign Up
+        </button>
       </p>
     </div>
   );
-}
+};
 
 export default LoginForm;
