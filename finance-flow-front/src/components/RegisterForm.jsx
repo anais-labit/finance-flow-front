@@ -27,13 +27,16 @@ const RegistrationForm = ({ setIsRegistered, onSignInClick }) => {
         mode: "cors",
       }
     );
+    let jsonResponse = await result.json();
 
-    if (result.ok) {
-      let jsonResponse = await result.json();
+    if (jsonResponse.success) {
       console.log(jsonResponse);
-      onSignInClick();
+      setMessage(jsonResponse.message);
+      setTimeout(() => {
+        onSignInClick();
+      }, 2500);
     } else {
-      console.error("La requête a échoué avec le statut : " + result.status);
+      setMessage(jsonResponse.message);
     }
   };
 
@@ -42,7 +45,6 @@ const RegistrationForm = ({ setIsRegistered, onSignInClick }) => {
       <form>
         <h2 className="text-center">Inscription</h2>
         <p id="message">{message}</p>
-
         <div className="form-group">
           <label htmlFor="login"></label>
           <input

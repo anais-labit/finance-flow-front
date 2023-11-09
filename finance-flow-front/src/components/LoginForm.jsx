@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../assets/css/LoginForm.css";
 
 const LoginForm = ({ setIsConnected, setIsRegistered }) => {
@@ -6,26 +6,54 @@ const LoginForm = ({ setIsConnected, setIsRegistered }) => {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
 
+  // C'EST ICI QUE JE FAIS L'ÉQUIVALENT DE SESSION START // A ACTIVER LORSQUE L'ON AURA MIS EN PLACE DÉCO
+  // useEffect(() => {
+  //   const storedToken = localStorage.getItem("token");
+  //   if (storedToken) {
+  //     setIsConnected(true);
+  //   }
+  // }, []);
+
   const handleLogin = async () => {
     let data = new FormData();
     data.append("login", login);
     data.append("password", password);
     data.append("submitLoginForm", "");
 
+    const fetchParams = {
+      method: "POST",
+      body: data,
+      mode: "cors",
+    };
+
     let result = await fetch(
       "http://localhost/plateforme/finance-flow-back/index.php",
-      {
-        method: "POST",
-        body: data,
-        mode: "cors",
-      }
+      fetchParams
     );
-    let jsonResponse = await result.json();
-    
-    if (jsonResponse["success"]) {
-      setIsConnected(true);
+
+    if (result.ok) {
+      try {
+        let jsonResponse = await result.json();
+
+        if (jsonResponse.success) {
+          localStorage.setItem("token", login);
+          setMessage(jsonResponse.message);
+          setTimeout(() => {
+            setIsConnected(true);
+          }, 2500);
+        } else {
+          console.log(jsonResponse);
+          setMessage(jsonResponse.message);
+          console.log(message);
+        }
+      } catch (error) {
+        console.error(
+          "Erreur lors de la conversion de la réponse en JSON:",
+          error
+        );
+      }
     } else {
-      console.error("La requête a échoué avec le statut : " + result.status);
+      console.error("La requête a échoué avec le statut :", result.status);
     }
   };
 
@@ -33,7 +61,7 @@ const LoginForm = ({ setIsConnected, setIsRegistered }) => {
     <div className="login-form">
       <form id="loginForm" action="" method="post">
         <h2 className="text-center">Connexion</h2>
-        <p id="message"></p>
+        <p id="message">{message}</p>
         <div className="form-group">
           <label htmlFor="login" id="login"></label>
           <input
@@ -44,7 +72,7 @@ const LoginForm = ({ setIsConnected, setIsRegistered }) => {
             required="required"
             autoComplete="off"
             onChange={(e) => {
-              setLogin(e.target.value), console.log(login);
+              setLogin(e.target.value);
             }}
           />
         </div>
@@ -58,7 +86,7 @@ const LoginForm = ({ setIsConnected, setIsRegistered }) => {
             required="required"
             autoComplete="off"
             onChange={(e) => {
-              setPassword(e.target.value), console.log(password);
+              setPassword(e.target.value);
             }}
           />
         </div>
