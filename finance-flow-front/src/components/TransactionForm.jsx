@@ -11,6 +11,9 @@ function TransactionForm() {
     category: '',
   });
 
+  // Catégories de dépenses en dur
+  const categories = ['Alimentation', 'Loisirs', 'Transport', 'Santé', 'Logement'];
+
   const handleSubmit = (event) => {
     event.preventDefault();
     addTransaction(transaction);
@@ -45,7 +48,9 @@ function TransactionForm() {
         required
       >
         <option value="">Select Category</option>
-        {/* Map through categories here */}
+        {categories.map((category, index) => (
+          <option key={index} value={category}>{category}</option>
+        ))}
       </select>
       <button type="submit">Add Transaction</button>
     </form>
