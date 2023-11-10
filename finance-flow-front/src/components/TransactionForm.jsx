@@ -1,53 +1,117 @@
-import React, { useState, useContext } from 'react';
-import { FinanceContext } from '../contexts/FinanceContext';
-import '../assets/css/TransactionForm.css';
+import React, { useState, useEffect } from "react";
+import "../assets/css/TransactionForm.css";
 
 function TransactionForm() {
-  const { addTransaction } = useContext(FinanceContext);
-  const [transaction, setTransaction] = useState({
-    date: '',
-    title: '',
-    amount: 0,
-    category: '',
-  });
+  const userId = localStorage.getItem("userId");
+  const [subcategories, setSubcategories] = useState([]);
+  const [subcategory, setSubcategory] = useState("");
+  const [title, setTitle] = useState("");
+  const [date, setDate] = useState("");
+  const [amount, setAmount] = useState(0);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    addTransaction(transaction);
-    setTransaction({ date: '', title: '', amount: 0, category: '' }); // Reset form
+  useEffect(() => {
+    const fetchSubcategories = async () => {
+      const response = await fetch(
+        "http://localhost/plateforme/finance-flow-back/index.php?getSubcategories"
+      );
+      const data = await response.json();
+
+      if (response.ok && data.subcategories) {
+        setSubcategories(data.subcategories);
+      } else {
+        console.error("Erreur lors de la récupération des sous-catégories");
+      }
+    };
+    fetchSubcategories();
+  }, []);
+
+  const handleTransaction = async () => {
+    let data = new FormData();
+    data.append("user_id", userId); // Utilisez la variable userId ici
+    data.append("subcategory_id", subcategory);
+    data.append("date", date);
+    data.append("title", title);
+    data.append("amount", amount);
+    data.append("submitAddTransactionForm", "");
+
+    const fetchParams = {
+      method: "POST",
+      body: data,
+      mode: "cors",
+    };
+
+    let result = await fetch(
+      "http://localhost/plateforme/finance-flow-back/index.php",
+      fetchParams
+    );
+
+    let jsonResponse = await result.json();
+
+    console.log(jsonResponse);
+
+    if (jsonResponse.success) {
+      console.log("Transaction ajoutée avec succès !");
+      setDate("");
+      setTitle("");
+      setAmount(0);
+      setSubcategory("");
+    } else {
+      console.error(
+        "Erreur lors de l'ajout de la transaction :",
+        jsonResponse.message
+      );
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="transaction-form">
+    <form
+      id="addTransactionForm"
+      method="post"
+      onSubmit={handleTransaction}
+      className="transaction-form"
+    >
       <input
         type="date"
-        value={transaction.date}
-        onChange={(e) => setTransaction({ ...transaction, date: e.target.value })}
+        value={date}
+        onChange={(e) => setDate(e.target.value)}
         required
       />
       <input
         type="text"
-        value={transaction.title}
-        onChange={(e) => setTransaction({ ...transaction, title: e.target.value })}
+        id="newTransaction"
+        name="newTransaction"
         placeholder="Title"
-        required
+        required="required"
+        autoComplete="off"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
       />
       <input
         type="number"
-        value={transaction.amount}
-        onChange={(e) => setTransaction({ ...transaction, amount: e.target.value })}
+        value={amount}
+        onChange={(e) => setAmount(e.target.value)}
         placeholder="Amount"
         required
       />
       <select
-        value={transaction.category}
-        onChange={(e) => setTransaction({ ...transaction, category: e.target.value })}
+        value={subcategory}
+        onChange={(e) => setSubcategory(e.target.value)}
         required
       >
-        <option value="">Select Category</option>
-        {/* Map through categories here */}
+        {subcategories.map((subcategory) => (
+          <option key={subcategory.id} value={subcategory.id}>
+            {subcategory.name}
+          </option>
+        ))}
       </select>
-      <button type="submit">Add Transaction</button>
+      <button
+        type="button"
+        id="addTransactionBtn"
+        name="addTransactionBtn"
+        onClick={handleTransaction}
+      >
+        Add Transaction
+      </button>
     </form>
   );
 }

@@ -7,12 +7,12 @@ const LoginForm = ({ setIsConnected, setIsRegistered }) => {
   const [message, setMessage] = useState("");
 
   // C'EST ICI QUE JE FAIS L'ÉQUIVALENT DE SESSION START // A ACTIVER LORSQUE L'ON AURA MIS EN PLACE DÉCO
-  // useEffect(() => {
-  //   const storedToken = localStorage.getItem("token");
-  //   if (storedToken) {
-  //     setIsConnected(true);
-  //   }
-  // }, []);
+  useEffect(() => {
+    const storedToken = localStorage.getItem("token");
+    if (storedToken) {
+      setIsConnected(true);
+    }
+  }, []);
 
   const handleLogin = async () => {
     let data = new FormData();
@@ -30,31 +30,23 @@ const LoginForm = ({ setIsConnected, setIsRegistered }) => {
       "http://localhost/plateforme/finance-flow-back/index.php",
       fetchParams
     );
-
+    
     if (result.ok) {
-      try {
-        let jsonResponse = await result.json();
+      let jsonResponse = await result.json();
 
-        if (jsonResponse.success) {
-          localStorage.setItem("token", login);
-          setMessage(jsonResponse.message);
-          setTimeout(() => {
-            setIsConnected(true);
-          }, 2500);
-        } else {
-          console.log(jsonResponse);
-          setMessage(jsonResponse.message);
-          console.log(message);
-        }
-      } catch (error) {
-        console.error(
-          "Erreur lors de la conversion de la réponse en JSON:",
-          error
-        );
+      if (jsonResponse.success) {
+        localStorage.setItem("token", login);
+        localStorage.setItem("userId", jsonResponse.id);
+
+        setMessage(jsonResponse.message);
+        setTimeout(() => {
+          setIsConnected(true);
+        }, 2000);
+      } else {
+        console.log(jsonResponse);
+        setMessage(jsonResponse.message);
+        console.log(message);
       }
-    } 
-    else {
-      console.error("La requête a échoué avec le statut :", result.status);
     }
   };
 
