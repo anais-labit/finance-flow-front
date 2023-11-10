@@ -4,21 +4,21 @@
   color: white;
   padding: 0.5rem;
   text-align: center;
-  display: flex; /* Ajouté pour permettre l'alignement des éléments */
-  justify-content: space-between; /* Espacement entre les éléments */
-  align-items: center; /* Alignement vertical des éléments */
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
 }
 
 .navbar .logout-button {
-  background-color: red; /* Couleur de fond du bouton */
-  color: white; /* Couleur du texte du bouton */
-  border: none; /* Retirer la bordure du bouton */
-  padding: 0.5rem 1rem; /* Padding du bouton */
-  font-size: 1rem; /* Taille de police du bouton */
-  cursor: pointer; /* Curseur pointeur */
-  border-radius: 4px; /* Bordures arrondies du bouton */
+  background-color: #ff6464; 
+  color: white; 
+  border: none; 
+  padding: 0.5rem 1rem; 
+  font-size: 1rem; 
+  cursor: pointer; 
+  border-radius: 4px;
 }
 
 .navbar .logout-button:hover {
-  background-color: #cc0000; /* Couleur de fond du bouton au survol */
+  background-color: #ffda47; 
 }
