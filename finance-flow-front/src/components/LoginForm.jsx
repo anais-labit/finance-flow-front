@@ -52,7 +52,8 @@ const LoginForm = ({ setIsConnected, setIsRegistered }) => {
           error
         );
       }
-    } else {
+    } 
+    else {
       console.error("La requête a échoué avec le statut :", result.status);
     }
   };
@@ -71,6 +72,7 @@ const LoginForm = ({ setIsConnected, setIsRegistered }) => {
             placeholder="Login"
             required="required"
             autoComplete="off"
+            value={login}
             onChange={(e) => {
               setLogin(e.target.value);
             }}
@@ -85,6 +87,7 @@ const LoginForm = ({ setIsConnected, setIsRegistered }) => {
             placeholder="Mot de passe"
             required="required"
             autoComplete="off"
+            value={password}
             onChange={(e) => {
               setPassword(e.target.value);
             }}
