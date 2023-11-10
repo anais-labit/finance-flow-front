@@ -1,11 +1,23 @@
 import React from 'react';
 import '../assets/css/Navbar.css';
 
-function Navbar() {
+function Navbar({ setIsConnected }) {
+  const handleLogout = async () => {
+
+      const response = await fetch("http://localhost/finance-flow-back/index.php", { method: 'POST' });
+      if (response.ok) {
+        setIsConnected(false);
+      }
+
+  };
+
   return (
     <nav className="navbar">
       <h1>Finance Flow</h1>
-      {/* Add navigation links here */}
+      <button onClick={handleLogout} className="logout-button">
+        Déconnexion
+      </button>
+      {/* Autres liens de navigation ici */}
     </nav>
   );
 }
