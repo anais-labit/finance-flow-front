@@ -9,7 +9,7 @@ function AccountSummary() {
   return (
     <div className="account-summary">
       <h3>Account Summary</h3>
-      <p>Solde total: {8000}</p>
+      <p>Total: {8000}</p>
       {/* Autres détails du compte, comme les transactions récentes */}
     </div>
   );
