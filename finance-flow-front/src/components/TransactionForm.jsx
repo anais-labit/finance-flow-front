@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import "../assets/css/TransactionForm.css";
 
 function TransactionForm() {
-  const userId = localStorage.getItem("userId");
+  // const userId = localStorage.getItem("userId");
   const [subcategories, setSubcategories] = useState([]);
-  const [subcategory, setSubcategory] = useState("");
+  const [subcategory, setSubcategory] = useState(1);
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");
   const [amount, setAmount] = useState(0);
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     const fetchSubcategories = async () => {
@@ -27,7 +28,8 @@ function TransactionForm() {
 
   const handleTransaction = async () => {
     let data = new FormData();
-    data.append("user_id", userId); // Utilisez la variable userId ici
+    var userId = localStorage.getItem("userId");
+    data.append("user_id", userId);
     data.append("subcategory_id", subcategory);
     data.append("date", date);
     data.append("title", title);
@@ -46,21 +48,8 @@ function TransactionForm() {
     );
 
     let jsonResponse = await result.json();
-
     console.log(jsonResponse);
-
-    if (jsonResponse.success) {
-      console.log("Transaction ajoutée avec succès !");
-      setDate("");
-      setTitle("");
-      setAmount(0);
-      setSubcategory("");
-    } else {
-      console.error(
-        "Erreur lors de l'ajout de la transaction :",
-        jsonResponse.message
-      );
-    }
+    setMessage(jsonResponse.message);
   };
 
   return (
@@ -70,8 +59,10 @@ function TransactionForm() {
       onSubmit={handleTransaction}
       className="transaction-form"
     >
+      <p id="message">{message}</p>
       <input
         type="date"
+        autoComplete="off"
         value={date}
         onChange={(e) => setDate(e.target.value)}
         required

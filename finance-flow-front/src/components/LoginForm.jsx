@@ -30,13 +30,14 @@ const LoginForm = ({ setIsConnected, setIsRegistered }) => {
       "http://localhost/plateforme/finance-flow-back/index.php",
       fetchParams
     );
-    
+
     if (result.ok) {
       let jsonResponse = await result.json();
 
       if (jsonResponse.success) {
         localStorage.setItem("token", login);
-        localStorage.setItem("userId", jsonResponse.id);
+        let userId = jsonResponse.id;
+        localStorage.setItem("userId", userId);
 
         setMessage(jsonResponse.message);
         setTimeout(() => {
