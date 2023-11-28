@@ -27,7 +27,8 @@ function App() {
 
   return (
       <div className="App">
-        <Navbar />
+        {/* Modification ici : passer setIsConnected à Navbar */}
+        <Navbar setIsConnected={setIsConnected} />
         <main>
           {!isRegistered ? (
             <RegistrationForm

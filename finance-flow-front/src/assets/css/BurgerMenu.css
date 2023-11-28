@@ -1,0 +1,21 @@
+/* BurgerMenu.css */
+.burger-menu {
+    background-color: #ff6464; /* Couleur de fond */
+    color: white; /* Couleur du texte */
+    border: none; /* Pas de bordure */
+    padding: 10px 15px; /* Padding autour du texte */
+    font-size: 20px; /* Taille de la police */
+    cursor: pointer; /* Style du curseur */
+    border-radius: 5px; /* Bordures arrondies */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Ombre portée */
+    transition: all 0.3s ease; /* Transition pour le survol */
+}
+
+.burger-menu:hover {
+    background-color: #ffda47; /* Changement de couleur au survol */
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3); /* Ombre portée plus prononcée */
+}
+
+.burger-menu:focus {
+    outline: none; /* Supprime la bordure de focus par défaut */
+}

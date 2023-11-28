@@ -1,0 +1,50 @@
+/* src/assets/css/AccountSummary.css */
+.account-summary {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 2rem 0;
+}
+
+.account-summary h3 {
+    color: #333;
+    margin-bottom: 1.5rem;
+}
+
+.account-detail {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+}
+
+.account-detail:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.account-detail-title {
+    font-size: 1rem;
+    color: #333;
+}
+
+.account-detail-value {
+    font-weight: bold;
+    color: #646cff;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .account-summary {
+        padding: 1rem;
+    }
+
+    .account-detail {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
