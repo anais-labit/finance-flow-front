@@ -6,7 +6,6 @@ import TransactionForm from "./components/TransactionForm";
 import TransactionList from "./components/TransactionList";
 import LoginForm from "./components/LoginForm";
 import RegistrationForm from "./components/RegisterForm";
-import { FinanceProvider } from "./contexts/FinanceContext";
 import "./App.css";
 import "./index.css";
 
