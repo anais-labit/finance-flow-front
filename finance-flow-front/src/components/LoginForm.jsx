@@ -7,12 +7,12 @@ const LoginForm = ({ setIsConnected, setIsRegistered }) => {
   const [message, setMessage] = useState("");
 
   // C'EST ICI QUE JE FAIS L'ÉQUIVALENT DE SESSION START // A ACTIVER LORSQUE L'ON AURA MIS EN PLACE DÉCO
-  // useEffect(() => {
-  //   const storedToken = localStorage.getItem("token");
-  //   if (storedToken) {
-  //     setIsConnected(true);
-  //   }
-  // }, []);
+  useEffect(() => {
+    const storedToken = localStorage.getItem("token");
+    if (storedToken) {
+      setIsConnected(true);
+    }
+  }, []);
 
   const handleLogin = async () => {
     let data = new FormData();
@@ -27,7 +27,7 @@ const LoginForm = ({ setIsConnected, setIsRegistered }) => {
     };
 
     let result = await fetch(
-      "http://localhost/plateforme/finance-flow-back/index.php",
+      "http://localhost/finance-flow-back/index.php",
       fetchParams
     );
 
