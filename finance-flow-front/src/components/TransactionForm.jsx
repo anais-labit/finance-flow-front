@@ -20,7 +20,7 @@ function TransactionForm() {
       if (response.ok && data.subcategories) {
         setSubcategories(data.subcategories);
       } else {
-        console.error("Erreur lors de la récupération des sous-catégories");
+        console.error("Erreur lors de la récupération des catégories");
       }
     };
     fetchSubcategories();
@@ -48,7 +48,7 @@ function TransactionForm() {
     );
 
     let jsonResponse = await result.json();
-    console.log(jsonResponse);
+    // console.log(jsonResponse);
     setMessage(jsonResponse.message);
   };
 

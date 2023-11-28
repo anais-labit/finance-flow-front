@@ -23,13 +23,10 @@ function App() {
   };
 
   const handleSuccessfulRegistration = () => {
-    // Appelé lorsque l'inscription réussit, tu peux également ajouter d'autres logiques ici si nécessaire.
-    // Pour l'instant, on bascule simplement sur le formulaire de connexion.
     handleSignInClick();
   };
 
   return (
-    <FinanceProvider>
       <div className="App">
         <Navbar />
         <main>
@@ -57,7 +54,6 @@ function App() {
           )}
         </main>
       </div>
-    </FinanceProvider>
   );
 }
 
