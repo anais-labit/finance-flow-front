@@ -1,14 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../assets/css/Navbar.css';
 
+
 function Navbar({ setIsConnected }) {
-  const handleLogout = async () => {
-
-      const response = await fetch("http://localhost/finance-flow-back/index.php", { method: 'POST' });
-      if (response.ok) {
-        setIsConnected(false);
-      }
-
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+    
+    setIsConnected(false);
   };
 
   return (
