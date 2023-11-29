@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../assets/css/TransactionForm.css";
 
-function TransactionForm() {
+function TransactionForm({setAddTransaction}) {
   // const userId = localStorage.getItem("userId");
   const [subcategories, setSubcategories] = useState([]);
   const [subcategory, setSubcategory] = useState(1);
@@ -50,6 +50,7 @@ function TransactionForm() {
     let jsonResponse = await result.json();
     // console.log(jsonResponse);
     setMessage(jsonResponse.message);
+    setAddTransaction(true);
   };
 
   return (

@@ -2,6 +2,7 @@
 .transaction-list {
     list-style: none;
     padding: 0;
+    text-align: left;
   }
   .transaction-list-item {
     border-bottom: 1px solid #ccc;

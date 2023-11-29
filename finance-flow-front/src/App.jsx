@@ -12,6 +12,7 @@ import "./index.css";
 function App() {
   const [isConnected, setIsConnected] = useState(false);
   const [isRegistered, setIsRegistered] = useState(true);
+  const [addTransaction, setAddTransaction] = useState(false);
 
   const handleSignUpClick = () => {
     setIsRegistered(false);
@@ -26,34 +27,34 @@ function App() {
   };
 
   return (
-      <div className="App">
-        {/* Modification ici : passer setIsConnected à Navbar */}
-        <Navbar setIsConnected={setIsConnected} />
-        <main>
-          {!isRegistered ? (
-            <RegistrationForm
-              setIsRegistered={setIsRegistered}
-              onSignInClick={handleSignInClick}
-              onSuccessfulRegistration={handleSuccessfulRegistration}
-            />
-          ) : (
-            <>
-              {!isConnected ? (
-                <LoginForm
-                  setIsConnected={setIsConnected}
-                  setIsRegistered={setIsRegistered}
-                />
-              ) : (
-                <>
-                  <Dashboard />
-                  <TransactionForm />
-                  <TransactionList />
-                </>
-              )}
-            </>
-          )}
-        </main>
-      </div>
+    <div className="App">
+      {/* Modification ici : passer setIsConnected à Navbar */}
+      <Navbar setIsConnected={setIsConnected} />
+      <main>
+        {!isRegistered ? (
+          <RegistrationForm
+            setIsRegistered={setIsRegistered}
+            onSignInClick={handleSignInClick}
+            onSuccessfulRegistration={handleSuccessfulRegistration}
+          />
+        ) : (
+          <>
+            {!isConnected ? (
+              <LoginForm
+                setIsConnected={setIsConnected}
+                setIsRegistered={setIsRegistered}
+              />
+            ) : (
+              <>
+                <Dashboard />
+                <TransactionForm setAddTransaction={setAddTransaction} />
+                <TransactionList setAddTransaction={setAddTransaction} addTransaction={addTransaction} />
+              </>
+            )}
+          </>
+        )}
+      </main>
+    </div>
   );
 }
 

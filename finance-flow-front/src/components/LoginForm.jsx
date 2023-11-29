@@ -44,9 +44,7 @@ const LoginForm = ({ setIsConnected, setIsRegistered }) => {
           setIsConnected(true);
         }, 2000);
       } else {
-        console.log(jsonResponse);
         setMessage(jsonResponse.message);
-        console.log(message);
       }
     }
   };
