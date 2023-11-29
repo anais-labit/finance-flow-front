@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../assets/css/TransactionForm.css";
 import "../assets/css/BurgerMenu.css"; // Assurez-vous d'inclure le CSS pour le burger menu
 
-function TransactionForm() {
+function TransactionForm({setAddTransaction}) {
   // States for form fields
   const [subcategories, setSubcategories] = useState([]);
   const [subcategory, setSubcategory] = useState(1);
@@ -56,6 +56,7 @@ function TransactionForm() {
 
     let jsonResponse = await result.json();
     setMessage(jsonResponse.message);
+    setAddTransaction(true);
   };
 
   // Toggle the form display
