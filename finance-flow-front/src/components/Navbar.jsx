@@ -14,7 +14,7 @@ function Navbar({ setIsConnected }) {
     <nav className="navbar">
       <h1>Finance Flow</h1>
       <button onClick={handleLogout} className="logout-button">
-        Déconnexion
+        Logout
       </button>
       {/* Autres liens de navigation ici */}
     </nav>

@@ -1,51 +1,37 @@
-/* src/assets/css/CategorySummary.css */
-.category-summary {
-    background-color: #fff;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin: 2rem 0;
+
+/* src/assets/css/CategorySummary.css et BudgetTracker.css */
+.category-summary, .budget-tracker {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.category-summary h2, .budget-tracker h2 {
+  font-size: 1.6rem;
+  margin-bottom: 15px;
+}
+
+.summary-item, .budget-item {
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.summary-item-title, .budget-item-title {
+  font-size: 1rem;
+  color: #333;
+}
+
+.summary-item-amount, .budget-item-amount {
+  font-weight: bold;
+  color: #646cff;
+}
+
+@media (max-width: 768px) {
+  .summary-item, .budget-item {
+    display: block;
+    text-align: left;
   }
-  
-  .category-summary h2 {
-    color: #333;
-    margin-bottom: 1.5rem;
-  }
-  
-  .summary-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid #eee;
-  }
-  
-  .summary-item:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-    border-bottom: none;
-  }
-  
-  .summary-item-title {
-    font-size: 1rem;
-    color: #333;
-  }
-  
-  .summary-item-amount {
-    font-weight: bold;
-    color: #646cff;
-  }
-  
-  /* Responsive adjustments */
-  @media (max-width: 768px) {
-    .category-summary {
-      padding: 1rem;
-    }
-  
-    .summary-item {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-  }
-  
+}
