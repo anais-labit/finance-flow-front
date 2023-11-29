@@ -34,7 +34,7 @@ const RegistrationForm = ({ setIsRegistered, onSignInClick }) => {
       setMessage(jsonResponse.message);
       setTimeout(() => {
         onSignInClick();
-      }, 2500);
+      }, 2000);
     } else {
       setMessage(jsonResponse.message);
     }

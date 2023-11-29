@@ -27,34 +27,25 @@ const LoginForm = ({ setIsConnected, setIsRegistered }) => {
     };
 
     let result = await fetch(
-      "http://localhost/finance-flow-back/index.php",
+      "http://localhost/plateforme/finance-flow-back/index.php",
       fetchParams
     );
 
     if (result.ok) {
-      try {
-        let jsonResponse = await result.json();
+      let jsonResponse = await result.json();
 
-        if (jsonResponse.success) {
-          localStorage.setItem("token", login);
-          setMessage(jsonResponse.message);
-          setTimeout(() => {
-            setIsConnected(true);
-          }, 2500);
-        } else {
-          console.log(jsonResponse);
-          setMessage(jsonResponse.message);
-          console.log(message);
-        }
-      } catch (error) {
-        console.error(
-          "Erreur lors de la conversion de la réponse en JSON:",
-          error
-        );
+      if (jsonResponse.success) {
+        localStorage.setItem("token", login);
+        let userId = jsonResponse.id;
+        localStorage.setItem("userId", userId);
+
+        setMessage(jsonResponse.message);
+        setTimeout(() => {
+          setIsConnected(true);
+        }, 2000);
+      } else {
+        setMessage(jsonResponse.message);
       }
-    } 
-    else {
-      console.error("La requête a échoué avec le statut :", result.status);
     }
   };
 
