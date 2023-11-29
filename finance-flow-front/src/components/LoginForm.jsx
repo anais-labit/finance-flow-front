@@ -27,7 +27,7 @@ const LoginForm = ({ setIsConnected, setIsRegistered }) => {
     };
 
     let result = await fetch(
-      "http://localhost/finance-flow-back/index.php",
+      "http://localhost/plateforme/finance-flow-back/index.php",
       fetchParams
     );
 
