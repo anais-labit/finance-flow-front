@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "../assets/css/TransactionForm.css";
+import "../assets/css/BurgerMenu.css"; // Assurez-vous d'inclure le CSS pour le burger menu
 
 function TransactionForm({setAddTransaction}) {
-  // const userId = localStorage.getItem("userId");
+  // States for form fields
   const [subcategories, setSubcategories] = useState([]);
   const [subcategory, setSubcategory] = useState(1);
   const [title, setTitle] = useState("");
@@ -10,10 +11,14 @@ function TransactionForm({setAddTransaction}) {
   const [amount, setAmount] = useState(0);
   const [message, setMessage] = useState("");
 
+  // State to control the form display
+  const [showForm, setShowForm] = useState(false);
+
   useEffect(() => {
+    // Fetch subcategories
     const fetchSubcategories = async () => {
       const response = await fetch(
-        "http://localhost/plateforme/finance-flow-back/index.php?getSubcategories"
+        "http://localhost/finance-flow-back/index.php?getSubcategories"
       );
       const data = await response.json();
 
@@ -26,7 +31,9 @@ function TransactionForm({setAddTransaction}) {
     fetchSubcategories();
   }, []);
 
-  const handleTransaction = async () => {
+  // Handle form submission
+  const handleTransaction = async (event) => {
+    event.preventDefault();
     let data = new FormData();
     var userId = localStorage.getItem("userId");
     data.append("user_id", userId);
@@ -43,68 +50,78 @@ function TransactionForm({setAddTransaction}) {
     };
 
     let result = await fetch(
-      "http://localhost/plateforme/finance-flow-back/index.php",
+      "http://localhost/finance-flow-back/index.php",
       fetchParams
     );
 
     let jsonResponse = await result.json();
-    // console.log(jsonResponse);
     setMessage(jsonResponse.message);
     setAddTransaction(true);
   };
 
+  // Toggle the form display
+  const toggleFormDisplay = () => {
+    setShowForm(!showForm);
+  };
+
   return (
-    <form
-      id="addTransactionForm"
-      method="post"
-      onSubmit={handleTransaction}
-      className="transaction-form"
-    >
-      <p id="message">{message}</p>
-      <input
-        type="date"
-        autoComplete="off"
-        value={date}
-        onChange={(e) => setDate(e.target.value)}
-        required
-      />
-      <input
-        type="text"
-        id="newTransaction"
-        name="newTransaction"
-        placeholder="Title"
-        required="required"
-        autoComplete="off"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-      />
-      <input
-        type="number"
-        value={amount}
-        onChange={(e) => setAmount(e.target.value)}
-        placeholder="Amount"
-        required
-      />
-      <select
-        value={subcategory}
-        onChange={(e) => setSubcategory(e.target.value)}
-        required
-      >
-        {subcategories.map((subcategory) => (
-          <option key={subcategory.id} value={subcategory.id}>
-            {subcategory.name}
-          </option>
-        ))}
-      </select>
-      <button
-        type="button"
-        id="addTransactionBtn"
-        name="addTransactionBtn"
-        onClick={handleTransaction}
-      >
-        Add Transaction
+    <>
+      <button className="burger-menu" onClick={toggleFormDisplay}>
+        ☰ Add Transaction
       </button>
-    </form>
+      {showForm && (
+        <form
+          id="addTransactionForm"
+          method="post"
+          onSubmit={handleTransaction}
+          className="transaction-form"
+        >
+          <p id="message">{message}</p>
+          <input
+            type="date"
+            autoComplete="off"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            required
+          />
+          <input
+            type="text"
+            id="newTransaction"
+            name="newTransaction"
+            placeholder="Title"
+            required="required"
+            autoComplete="off"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+          <input
+            type="number"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            placeholder="Amount"
+            required
+          />
+          <select
+            value={subcategory}
+            onChange={(e) => setSubcategory(e.target.value)}
+            required
+          >
+            {subcategories.map((subcategory) => (
+              <option key={subcategory.id} value={subcategory.id}>
+                {subcategory.name}
+              </option>
+            ))}
+          </select>
+          <button
+            type="submit"
+            id="addTransactionBtn"
+            name="addTransactionBtn"
+          >
+            Add Transaction
+          </button>
+        </form>
+      )}
+    </>
   );
 }
 
