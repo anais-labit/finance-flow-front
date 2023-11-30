@@ -5,7 +5,7 @@ import AccountSummary from './AccountSummary';
 import BurgerMenu from './BurgerMenu';
 import '../assets/css/Dashboard.css';
 
-function Dashboard() {
+function Dashboard({balance, setBalance}) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -15,10 +15,9 @@ function Dashboard() {
   return (
     <section className="dashboard">
       <h2>Dashboard</h2>
-      <AccountSummary /> {/* Affichage du solde général */}
-
+      <AccountSummary balance={balance} setBalance={setBalance} />{" "}
+      {/* Affichage du solde général */}
       <BurgerMenu onClick={toggleMenu} /> {/* Bouton du menu burger */}
-
       {isMenuOpen && (
         <>
           <CategorySummary />

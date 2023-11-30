@@ -6,6 +6,7 @@ import TransactionForm from "./components/TransactionForm";
 import TransactionList from "./components/TransactionList";
 import LoginForm from "./components/LoginForm";
 import RegistrationForm from "./components/RegisterForm";
+import BudgetComponent from "./components/BudgetComponent";
 import "./App.css";
 import "./index.css";
 
@@ -13,6 +14,7 @@ function App() {
   const [isConnected, setIsConnected] = useState(false);
   const [isRegistered, setIsRegistered] = useState(true);
   const [addTransaction, setAddTransaction] = useState(false);
+  const [balance, setBalance] = useState();
 
   const handleSignUpClick = () => {
     setIsRegistered(false);
@@ -46,9 +48,13 @@ function App() {
               />
             ) : (
               <>
-                <Dashboard />
+                <BudgetComponent balance={balance} setBalance={setBalance} />
+                <Dashboard balance={balance} setBalance={setBalance} />
                 <TransactionForm setAddTransaction={setAddTransaction} />
-                <TransactionList setAddTransaction={setAddTransaction} addTransaction={addTransaction} />
+                <TransactionList
+                  setAddTransaction={setAddTransaction}
+                  addTransaction={addTransaction}
+                />
               </>
             )}
           </>

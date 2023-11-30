@@ -18,7 +18,7 @@ function TransactionForm({setAddTransaction}) {
     // Fetch subcategories
     const fetchSubcategories = async () => {
       const response = await fetch(
-        "http://localhost/finance-flow-back/index.php?getSubcategories"
+        "http://localhost/plateforme/finance-flow-back/index.php?getSubcategories"
       );
       const data = await response.json();
 
@@ -50,7 +50,7 @@ function TransactionForm({setAddTransaction}) {
     };
 
     let result = await fetch(
-      "http://localhost/finance-flow-back/index.php",
+      "http://localhost/plateforme/finance-flow-back/index.php",
       fetchParams
     );
 
@@ -67,7 +67,7 @@ function TransactionForm({setAddTransaction}) {
   return (
     <>
       <button className="burger-menu" onClick={toggleFormDisplay}>
-        ☰ Add Transaction
+        +
       </button>
       {showForm && (
         <form
