@@ -1,76 +1,3 @@
-// import React, { useState, useEffect } from "react";
-// import "../assets/css/BudgetComponent.css";
-
-// const BudgetComponent = ({ balance, setBalance }) => {
-//   const [initialAmount, setInitialAmount] = useState("");
-//   const [budgetSet, setBudgetSet] = useState(false);
-
-//   useEffect(() => {
-//     const isBudgetSet = false;
-
-//     if (isBudgetSet) {
-//       setBudgetSet(true);
-//     }
-//   }, []);
-
-//   const handleBudgetChange = (e) => {
-//     setInitialAmount(e.target.value);
-//   };
-
-//   const handleSaveBudget = async (event) => {
-//     event.preventDefault();
-//     // console.log("Budget saved:", initialAmount);
-//     let data = new FormData();
-//     let userId = localStorage.getItem("userId");
-//     data.append("user_id", userId);
-//     data.append("intial_amount", initialAmount);
-//     data.append("submitBalanceForm", "");
-
-//     console.log(data);
-
-//     const fetchParams = {
-//       method: "POST",
-//       body: data,
-//       mode: "cors",
-//     };
-
-//     let result = await fetch(
-//       "http://localhost/plateforme/finance-flow-back/index.php",
-//       fetchParams
-//     );
-//     setBudgetSet(true);
-//     setBalance(initialAmount);
-//   };
-
-//   return (
-//     <div>
-//       {!budgetSet ? (
-//         <div>
-//           <label>
-//             Quel budget avez-vous pour le mois ?
-//             <input
-//               type="number"
-//               id="intial_amount"
-//               name="intial_amount"
-//               value={initialAmount}
-//               onChange={handleBudgetChange}
-//             />
-//           </label>
-//           <button type="submit" onClick={handleSaveBudget}>
-//             Save
-//           </button>
-//         </div>
-//       ) : (
-//         <div>
-//           <p>Vous avez déjà défini un budget pour le mois.</p>
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default BudgetComponent;
-
 import React, { useState, useEffect } from "react";
 import "../assets/css/BudgetComponent.css";
 
@@ -79,11 +6,28 @@ const BudgetComponent = ({ balance, setBalance }) => {
   const [budgetSet, setBudgetSet] = useState(false);
 
   useEffect(() => {
-    const isBudgetSet = false;
+    const fetchBudget = async () => {
+      try {
+        let userId = localStorage.getItem("userId");
+        const response = await fetch(
+          `http://localhost/plateforme/finance-flow-back/index.php?getBudget&userId=${userId}`
+        );
 
-    if (isBudgetSet) {
-      setBudgetSet(true);
-    }
+        if (response.ok) {
+          const data = await response.json();
+          setInitialAmount(data.initial_amount);
+          setBudgetSet(true);
+        } else {
+          console.error(
+            "Erreur lors de la récupération du budget. Réponse du serveur :",
+            response
+          );
+        }
+      } catch (error) {
+        console.error("Erreur lors de la récupération du budget :", error);
+      }
+    };
+    fetchBudget();
   }, []);
 
   const handleBudgetChange = (e) => {
@@ -96,7 +40,7 @@ const BudgetComponent = ({ balance, setBalance }) => {
     let data = new FormData();
     let userId = localStorage.getItem("userId");
     data.append("user_id", userId);
-    data.append("initial_amount", initialAmount); 
+    data.append("initial_amount", initialAmount);
     data.append("submitBalanceForm", "");
 
     console.log(data);
@@ -126,7 +70,11 @@ const BudgetComponent = ({ balance, setBalance }) => {
 
   return (
     <div className="budget-container">
-      {!budgetSet ? (
+      {budgetSet ? (
+        <div>
+          <p className="budget-amount">{initialAmount}€</p>
+        </div>
+      ) : (
         <div>
           <label htmlFor="initial_amount" className="budget-label">
             <p>Quel budget avez-vous pour le mois ?</p>
@@ -146,12 +94,6 @@ const BudgetComponent = ({ balance, setBalance }) => {
           >
             Save
           </button>
-        </div>
-      ) : (
-        <div>
-          <p className="budget-message">
-            Vous avez déjà défini un budget pour le mois.
-          </p>
         </div>
       )}
     </div>

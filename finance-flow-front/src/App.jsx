@@ -6,7 +6,6 @@ import TransactionForm from "./components/TransactionForm";
 import TransactionList from "./components/TransactionList";
 import LoginForm from "./components/LoginForm";
 import RegistrationForm from "./components/RegisterForm";
-import BudgetComponent from "./components/BudgetComponent";
 import "./App.css";
 import "./index.css";
 
@@ -30,7 +29,6 @@ function App() {
 
   return (
     <div className="App">
-      {/* Modification ici : passer setIsConnected à Navbar */}
       <Navbar setIsConnected={setIsConnected} />
       <main>
         {!isRegistered ? (
@@ -48,7 +46,6 @@ function App() {
               />
             ) : (
               <>
-                <BudgetComponent balance={balance} setBalance={setBalance} />
                 <Dashboard balance={balance} setBalance={setBalance} />
                 <TransactionForm setAddTransaction={setAddTransaction} />
                 <TransactionList

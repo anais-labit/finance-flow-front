@@ -1,8 +1,9 @@
-// AccountSummary.jsx
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import BudgetComponent from "./BudgetComponent";
 import "../assets/css/AccountSummary.css";
 
 function AccountSummary({ balance, setBalance }) {
+    const [loading, setLoading] = useState(true);
   useEffect(() => {
     const fetchBalance = async () => {
       try {
@@ -31,9 +32,17 @@ function AccountSummary({ balance, setBalance }) {
   return (
     <div className="account-summary">
       <h3>Total balance</h3>
-      <p>{balance !== null ? balance + "€" : "Chargement en cours..."}</p>
+      {loading ? (
+        <BudgetComponent balance={balance} setBalance={setBalance} />
+      ) : balance !== undefined ? (
+        <p>{balance + "€"}</p>
+      ) : (
+        <BudgetComponent balance={balance} setBalance={setBalance} />
+      )}
     </div>
   );
 }
 
 export default AccountSummary;
+
+
