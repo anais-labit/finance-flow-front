@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../assets/css/TransactionForm.css";
 import "../assets/css/BurgerMenu.css"; // Assurez-vous d'inclure le CSS pour le burger menu
 
-function TransactionForm({setAddTransaction}) {
+function TransactionForm({ setAddTransaction }) {
   // States for form fields
   const [subcategories, setSubcategories] = useState([]);
   const [subcategory, setSubcategory] = useState(1);
@@ -31,7 +31,6 @@ function TransactionForm({setAddTransaction}) {
     fetchSubcategories();
   }, []);
 
-  // Handle form submission
   const handleTransaction = async (event) => {
     event.preventDefault();
     let data = new FormData();
@@ -66,6 +65,8 @@ function TransactionForm({setAddTransaction}) {
 
   return (
     <>
+      {" "}
+      <h2 className="transaction-list-title">Transactions</h2>
       <button className="burger-menu" onClick={toggleFormDisplay}>
         +
       </button>
@@ -112,11 +113,7 @@ function TransactionForm({setAddTransaction}) {
               </option>
             ))}
           </select>
-          <button
-            type="submit"
-            id="addTransactionBtn"
-            name="addTransactionBtn"
-          >
+          <button type="submit" id="addTransactionBtn" name="addTransactionBtn">
             Add Transaction
           </button>
         </form>

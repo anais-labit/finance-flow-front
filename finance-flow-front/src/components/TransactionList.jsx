@@ -38,7 +38,6 @@ function TransactionList({ setAddTransaction, addTransaction }) {
 
   return (
     <>
-      <h2 className="transaction-list-title">Transactions</h2>
       <div className="transaction-list">
         {transactions.slice(0, visibleTransactions).map((transaction) => (
           <div key={transaction.id} className="transaction-list-item">
