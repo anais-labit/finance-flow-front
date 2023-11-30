@@ -10,13 +10,17 @@ const BudgetComponent = ({ balance, setBalance }) => {
       try {
         let userId = localStorage.getItem("userId");
         const response = await fetch(
-          `http://localhost/plateforme/finance-flow-back/index.php?getBudget&userId=${userId}`
+          `http://localhost/plateforme/finance-flow-back/index.php?getUserBalance&userId=${userId}`
         );
 
         if (response.ok) {
           const data = await response.json();
-          setInitialAmount(data.initial_amount);
-          setBudgetSet(true);
+          if (data && typeof data.initial_balance === "number") {
+            setInitialAmount(data.initial_balance);
+            setBudgetSet(true);
+          } else {
+            setBudgetSet(false);
+          }
         } else {
           console.error(
             "Erreur lors de la récupération du budget. Réponse du serveur :",
@@ -24,7 +28,10 @@ const BudgetComponent = ({ balance, setBalance }) => {
           );
         }
       } catch (error) {
-        console.error("Erreur lors de la récupération du budget :", error);
+        console.error(
+          "Erreur lors de la récupération du budget :",
+          error.message
+        );
       }
     };
     fetchBudget();
@@ -42,8 +49,6 @@ const BudgetComponent = ({ balance, setBalance }) => {
     data.append("user_id", userId);
     data.append("initial_amount", initialAmount);
     data.append("submitBalanceForm", "");
-
-    console.log(data);
 
     const fetchParams = {
       method: "POST",

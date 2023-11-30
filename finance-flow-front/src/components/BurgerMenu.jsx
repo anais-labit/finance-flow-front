@@ -1,6 +1,5 @@
-// BurgerMenu.jsx
-import React from 'react';
-import '../assets/css/BurgerMenu.css'; // Assurez-vous de créer ce fichier CSS
+import React from "react";
+import "../assets/css/BurgerMenu.css";
 
 function BurgerMenu({ onClick }) {
   return (
