@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../assets/css/BudgetComponent.css";
 
 const BudgetComponent = ({ balance, setBalance }) => {
-  const [initialAmount, setInitialAmount] = useState("");
+  const [amount, setAmount] = useState("");
   const [budgetSet, setBudgetSet] = useState(false);
 
   useEffect(() => {
@@ -15,8 +15,8 @@ const BudgetComponent = ({ balance, setBalance }) => {
 
         if (response.ok) {
           const data = await response.json();
-          if (data && typeof data.initial_balance === "number") {
-            setInitialAmount(data.initial_balance);
+          if (data && typeof data.balance === "number") {
+            setAmount(data.balance);
             setBudgetSet(true);
           } else {
             setBudgetSet(false);
@@ -38,7 +38,7 @@ const BudgetComponent = ({ balance, setBalance }) => {
   }, []);
 
   const handleBudgetChange = (e) => {
-    setInitialAmount(e.target.value);
+    setAmount(e.target.value);
   };
 
   const handleSaveBudget = async (event) => {
@@ -47,7 +47,7 @@ const BudgetComponent = ({ balance, setBalance }) => {
     let data = new FormData();
     let userId = localStorage.getItem("userId");
     data.append("user_id", userId);
-    data.append("initial_amount", initialAmount);
+    data.append("amount", amount);
     data.append("submitBalanceForm", "");
 
     const fetchParams = {
@@ -64,7 +64,7 @@ const BudgetComponent = ({ balance, setBalance }) => {
 
       if (result.ok) {
         setBudgetSet(true);
-        setBalance(initialAmount);
+        setBalance(amount);
       } else {
         console.error("Échec de la sauvegarde du budget");
       }
@@ -77,17 +77,17 @@ const BudgetComponent = ({ balance, setBalance }) => {
     <div className="budget-container">
       {budgetSet ? (
         <div>
-          <p className="budget-amount">{initialAmount}€</p>
+          <p className="budget-amount">{amount}€</p>
         </div>
       ) : (
         <div>
-          <label htmlFor="initial_amount" className="budget-label">
+          <label htmlFor="amount" className="budget-label">
             <p>Quel budget avez-vous pour le mois ?</p>
             <input
               type="number"
-              id="initial_amount"
-              name="initial_amount"
-              value={initialAmount}
+              id="amount"
+              name="amount"
+              value={amount}
               onChange={handleBudgetChange}
               className="budget-input"
             />

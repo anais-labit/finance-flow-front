@@ -3,7 +3,7 @@ import BudgetComponent from "./BudgetComponent";
 import "../assets/css/AccountSummary.css";
 
 function AccountSummary({ balance, setBalance }) {
-    const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     const fetchBalance = async () => {
       try {
@@ -14,7 +14,7 @@ function AccountSummary({ balance, setBalance }) {
 
         if (response.ok) {
           const data = await response.json();
-          setBalance(data.initial_balance);
+          setBalance(data.balance);
         } else {
           console.error(
             "Erreur lors de la récupération du solde. Réponse du serveur :",
@@ -44,5 +44,3 @@ function AccountSummary({ balance, setBalance }) {
 }
 
 export default AccountSummary;
-
-
