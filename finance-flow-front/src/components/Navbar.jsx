@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import '../assets/css/Navbar.css';
 
-
-function Navbar({ setIsConnected }) {
+function Navbar({ setIsConnected, isConnected }) {
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
@@ -13,9 +12,11 @@ function Navbar({ setIsConnected }) {
   return (
     <nav className="navbar">
       <h1>Finance Flow</h1>
-      <button onClick={handleLogout} className="logout-button">
-        Logout
-      </button>
+      {isConnected && (
+        <button onClick={handleLogout} className="logout-button">
+          Logout
+        </button>
+      )}
       {/* Autres liens de navigation ici */}
     </nav>
   );

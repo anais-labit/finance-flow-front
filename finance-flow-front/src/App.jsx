@@ -1,4 +1,3 @@
-// App.jsx
 import React, { useState } from "react";
 import Navbar from "./components/Navbar";
 import Dashboard from "./components/Dashboard";
@@ -29,7 +28,7 @@ function App() {
 
   return (
     <div className="App">
-      <Navbar setIsConnected={setIsConnected} />
+      <Navbar setIsConnected={setIsConnected} isConnected={isConnected} />
       <main>
         {!isRegistered ? (
           <RegistrationForm

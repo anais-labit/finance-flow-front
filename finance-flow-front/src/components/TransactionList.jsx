@@ -8,7 +8,7 @@ function TransactionList({ setAddTransaction, addTransaction }) {
   const fetchTransactions = async () => {
     let userId = localStorage.getItem("userId");
     const response = await fetch(
-      `http://localhost/plateforme/finance-flow-back/index.php?getUserTransactions&userId=${userId}`
+      `http://localhost/finance-flow-back/index.php?getUserTransactions&userId=${userId}`
     );
 
     if (response.ok) {
