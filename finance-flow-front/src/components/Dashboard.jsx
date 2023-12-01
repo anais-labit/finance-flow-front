@@ -5,7 +5,7 @@ import BalanceComponent from "./BalanceComponent";
 import BurgerMenu from "./BurgerMenu";
 import "../assets/css/Dashboard.css";
 
-function Dashboard({ balance, setBalance, initialAmount, setInitialAmount }) {
+function Dashboard({ balance, setBalance}) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -16,8 +16,6 @@ function Dashboard({ balance, setBalance, initialAmount, setInitialAmount }) {
     <section className="dashboard">
       <h2>Dashboard</h2>
       <BalanceComponent
-        initialAmount={initialAmount}
-        setInitialAmount={setInitialAmount}
         balance={balance}
         setBalance={setBalance}
       />

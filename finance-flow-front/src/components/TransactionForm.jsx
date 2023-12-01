@@ -1,17 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "../assets/css/TransactionForm.css";
-import "../assets/css/BurgerMenu.css"; 
+import "../assets/css/BurgerMenu.css";
 
-function TransactionForm({
-  setAddTransaction,
-  initialAmount,
-  setInitialAmount,
-}) {
+function TransactionForm({ setAddTransaction, setBalance }) {
   const [subcategories, setSubcategories] = useState([]);
   const [subcategory, setSubcategory] = useState(1);
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");
-  const [amount, setAmount] = useState(0);
+  const [transactionAmount, setTransactionAmount] = useState(0);
   const [message, setMessage] = useState("");
 
   const [showForm, setShowForm] = useState(false);
@@ -32,6 +28,35 @@ function TransactionForm({
     fetchSubcategories();
   }, []);
 
+  const fetchCurrentBalance = async () => {
+    try {
+      let userId = localStorage.getItem("userId");
+      const response = await fetch(
+        `http://localhost/plateforme/finance-flow-back/index.php?getUserBalance&userId=${userId}`
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        if (data) {
+          setBalance(data.balance);
+          setBudgetSet(true);
+        } else {
+          setBudgetSet(false);
+        }
+      } else {
+        console.error(
+          "Erreur lors de la récupération du budget. Réponse du serveur :",
+          response
+        );
+      }
+    } catch (error) {
+      console.error(
+        "Erreur lors de la récupération du budget :",
+        error.message
+      );
+    }
+  };
+
   const handleTransaction = async (event) => {
     event.preventDefault();
     let data = new FormData();
@@ -40,7 +65,7 @@ function TransactionForm({
     data.append("subcategory_id", subcategory);
     data.append("date", date);
     data.append("title", title);
-    data.append("amount", amount);
+    data.append("amount", transactionAmount);
     data.append("submitAddTransactionForm", "");
 
     const fetchParams = {
@@ -55,6 +80,10 @@ function TransactionForm({
     );
 
     let jsonResponse = await result.json();
+    console.log(jsonResponse);
+    if (jsonResponse) {
+      fetchCurrentBalance();
+    }
     setMessage(jsonResponse.message);
     setAddTransaction(true);
   };
@@ -97,8 +126,8 @@ function TransactionForm({
           />
           <input
             type="number"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
+            value={transactionAmount}
+            onChange={(e) => setTransactionAmount(e.target.value)}
             placeholder="Amount"
             required
           />

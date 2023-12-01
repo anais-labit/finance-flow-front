@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "../assets/css/BalanceComponent.css";
 
-const BudgetComponent = ({
+const BalanceComponent = ({
   balance,
-  setBalance,
-  initialAmount,
-  setInitialAmount,
+  setBalance
 }) => {
   const [budgetSet, setBudgetSet] = useState(false);
 
@@ -39,10 +37,10 @@ const BudgetComponent = ({
       }
     };
     fetchCurrentBalance();
-  }, [setBalance]);
+  }, [balance]);
 
   const handleBudgetChange = (e) => {
-    setInitialAmount(e.target.value);
+    setBalance(e.target.value);
   };
 
   const handleSaveBudget = async (event) => {
@@ -51,7 +49,7 @@ const BudgetComponent = ({
     let data = new FormData();
     let userId = localStorage.getItem("userId");
     data.append("user_id", userId);
-    data.append("amount", initialAmount);
+    data.append("amount", balance);
     data.append("submitBalanceForm", "");
 
     const fetchParams = {
@@ -68,7 +66,8 @@ const BudgetComponent = ({
 
       if (result.ok) {
         setBudgetSet(true);
-        setBalance(initialAmount);
+        console.log(result);
+        setBalance();
       } else {
         console.error("Échec de la sauvegarde du budget");
       }
@@ -93,7 +92,7 @@ const BudgetComponent = ({
                 type="number"
                 id="amount"
                 name="amount"
-                value={initialAmount}
+                value={balance}
                 onChange={handleBudgetChange}
                 className="budget-input"
               />
@@ -112,4 +111,4 @@ const BudgetComponent = ({
   );
 };
 
-export default BudgetComponent;
+export default BalanceComponent;
