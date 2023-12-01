@@ -37,12 +37,7 @@ function TransactionForm({ setAddTransaction, setBalance }) {
 
       if (response.ok) {
         const data = await response.json();
-        if (data) {
-          setBalance(data.balance);
-          setBudgetSet(true);
-        } else {
-          setBudgetSet(false);
-        }
+          setBalance(data.balance);        
       } else {
         console.error(
           "Erreur lors de la récupération du budget. Réponse du serveur :",
@@ -80,7 +75,6 @@ function TransactionForm({ setAddTransaction, setBalance }) {
     );
 
     let jsonResponse = await result.json();
-    console.log(jsonResponse);
     if (jsonResponse) {
       fetchCurrentBalance();
     }
@@ -119,7 +113,6 @@ function TransactionForm({ setAddTransaction, setBalance }) {
             id="newTransaction"
             name="newTransaction"
             placeholder="Title"
-            required="required"
             autoComplete="off"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
@@ -129,7 +122,6 @@ function TransactionForm({ setAddTransaction, setBalance }) {
             value={transactionAmount}
             onChange={(e) => setTransactionAmount(e.target.value)}
             placeholder="Amount"
-            required
           />
           <select
             value={subcategory}
