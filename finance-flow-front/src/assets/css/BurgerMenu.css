@@ -4,7 +4,7 @@
   color: white; /* Couleur du texte */
   border: none; /* Pas de bordure */
   padding: 10px 15px; /* Padding autour du texte */
-  margin-bottom: 10px;
+  margin-bottom: 40px;
   font-size: 15px; /* Taille de la police */
   cursor: pointer; /* Style du curseur */
   border-radius: 5px; /* Bordures arrondies */

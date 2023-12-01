@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "../assets/css/TransactionForm.css";
-import "../assets/css/BurgerMenu.css"; // Assurez-vous d'inclure le CSS pour le burger menu
+import "../assets/css/BurgerMenu.css"; 
 
-function TransactionForm({ setAddTransaction }) {
-  // States for form fields
+function TransactionForm({
+  setAddTransaction,
+  initialAmount,
+  setInitialAmount,
+}) {
   const [subcategories, setSubcategories] = useState([]);
   const [subcategory, setSubcategory] = useState(1);
   const [title, setTitle] = useState("");
@@ -11,11 +14,9 @@ function TransactionForm({ setAddTransaction }) {
   const [amount, setAmount] = useState(0);
   const [message, setMessage] = useState("");
 
-  // State to control the form display
   const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
-    // Fetch subcategories
     const fetchSubcategories = async () => {
       const response = await fetch(
         "http://localhost/plateforme/finance-flow-back/index.php?getSubcategories"
@@ -58,7 +59,6 @@ function TransactionForm({ setAddTransaction }) {
     setAddTransaction(true);
   };
 
-  // Toggle the form display
   const toggleFormDisplay = () => {
     setShowForm(!showForm);
   };

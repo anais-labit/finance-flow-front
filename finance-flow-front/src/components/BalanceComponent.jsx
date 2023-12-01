@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react";
-import "../assets/css/BudgetComponent.css";
+import "../assets/css/BalanceComponent.css";
 
-const BudgetComponent = ({ balance, setBalance }) => {
-  const [amount, setAmount] = useState("");
+const BudgetComponent = ({
+  balance,
+  setBalance,
+  initialAmount,
+  setInitialAmount,
+}) => {
   const [budgetSet, setBudgetSet] = useState(false);
 
   useEffect(() => {
-    const fetchBudget = async () => {
+    const fetchCurrentBalance = async () => {
       try {
         let userId = localStorage.getItem("userId");
         const response = await fetch(
@@ -15,8 +19,8 @@ const BudgetComponent = ({ balance, setBalance }) => {
 
         if (response.ok) {
           const data = await response.json();
-          if (data && typeof data.balance === "number") {
-            setAmount(data.balance);
+          if (data) {
+            setBalance(data.balance);
             setBudgetSet(true);
           } else {
             setBudgetSet(false);
@@ -34,11 +38,11 @@ const BudgetComponent = ({ balance, setBalance }) => {
         );
       }
     };
-    fetchBudget();
-  }, []);
+    fetchCurrentBalance();
+  }, [setBalance]);
 
   const handleBudgetChange = (e) => {
-    setAmount(e.target.value);
+    setInitialAmount(e.target.value);
   };
 
   const handleSaveBudget = async (event) => {
@@ -47,7 +51,7 @@ const BudgetComponent = ({ balance, setBalance }) => {
     let data = new FormData();
     let userId = localStorage.getItem("userId");
     data.append("user_id", userId);
-    data.append("amount", amount);
+    data.append("amount", initialAmount);
     data.append("submitBalanceForm", "");
 
     const fetchParams = {
@@ -64,7 +68,7 @@ const BudgetComponent = ({ balance, setBalance }) => {
 
       if (result.ok) {
         setBudgetSet(true);
-        setBalance(amount);
+        setBalance(initialAmount);
       } else {
         console.error("Échec de la sauvegarde du budget");
       }
@@ -75,32 +79,35 @@ const BudgetComponent = ({ balance, setBalance }) => {
 
   return (
     <div className="budget-container">
-      {budgetSet ? (
-        <div>
-          <p className="budget-amount">{amount}€</p>
-        </div>
-      ) : (
-        <div>
-          <label htmlFor="amount" className="budget-label">
-            <p>Quel budget avez-vous pour le mois ?</p>
-            <input
-              type="number"
-              id="amount"
-              name="amount"
-              value={amount}
-              onChange={handleBudgetChange}
-              className="budget-input"
-            />
-          </label>
-          <button
-            type="submit"
-            onClick={handleSaveBudget}
-            className="budget-button"
-          >
-            Save
-          </button>
-        </div>
-      )}
+      <div className="account-summary">
+        <h3>Total balance</h3>
+        {budgetSet ? (
+          <div>
+            <p className="budget-amount">{balance}€</p>
+          </div>
+        ) : (
+          <div>
+            <label htmlFor="amount" className="budget-label">
+              <p>Quel budget avez-vous pour le mois ?</p>
+              <input
+                type="number"
+                id="amount"
+                name="amount"
+                value={initialAmount}
+                onChange={handleBudgetChange}
+                className="budget-input"
+              />
+            </label>
+            <button
+              type="submit"
+              onClick={handleSaveBudget}
+              className="budget-button"
+            >
+              Save
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

@@ -13,7 +13,8 @@ function App() {
   const [isConnected, setIsConnected] = useState(false);
   const [isRegistered, setIsRegistered] = useState(true);
   const [addTransaction, setAddTransaction] = useState(false);
-  const [balance, setBalance] = useState();
+  const [initialAmount, setInitialAmount] = useState(0);
+  const [balance, setBalance] = useState(0);
 
   const handleSignUpClick = () => {
     setIsRegistered(false);
@@ -46,8 +47,19 @@ function App() {
               />
             ) : (
               <>
-                <Dashboard balance={balance} setBalance={setBalance} />
-                <TransactionForm setAddTransaction={setAddTransaction} />
+                <Dashboard
+                  initialAmount={initialAmount}
+                  setInitialAmount={setInitialAmount}
+                  balance={balance}
+                  setBalance={setBalance}
+                />
+                <TransactionForm
+                  setAddTransaction={setAddTransaction}
+                  initialAmount={initialAmount}
+                  setInitialAmount={setInitialAmount}
+                  balance={balance}
+                  setBalance={setBalance}
+                />
                 <TransactionList
                   setAddTransaction={setAddTransaction}
                   addTransaction={addTransaction}
