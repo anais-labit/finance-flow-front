@@ -29,7 +29,7 @@ function App() {
 
   return (
     <div className="App">
-      <Navbar setIsConnected={setIsConnected} />
+      <Navbar setIsConnected={setIsConnected} isConnected={isConnected} />
       <main>
         {!isRegistered ? (
           <RegistrationForm
@@ -46,10 +46,7 @@ function App() {
               />
             ) : (
               <>
-                <Dashboard
-                  balance={balance}
-                  setBalance={setBalance}
-                />
+                <Dashboard balance={balance} setBalance={setBalance} />
                 <TransactionForm
                   setAddTransaction={setAddTransaction}
                   balance={balance}
