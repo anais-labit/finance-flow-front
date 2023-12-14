@@ -66,7 +66,6 @@ const BalanceComponent = ({
 
       if (result.ok) {
         setBudgetSet(true);
-        console.log(result);
         setBalance();
       } else {
         console.error("Échec de la sauvegarde du budget");
@@ -87,7 +86,7 @@ const BalanceComponent = ({
         ) : (
           <div>
             <label htmlFor="amount" className="budget-label">
-              <p>Quel budget avez-vous pour le mois ?</p>
+              <p>Renseignez votre budget du mois : <br/><p></p></p>
               <input
                 type="number"
                 id="amount"
