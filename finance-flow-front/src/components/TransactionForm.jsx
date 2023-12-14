@@ -9,7 +9,6 @@ function TransactionForm({ setAddTransaction, setBalance }) {
   const [date, setDate] = useState("");
   const [transactionAmount, setTransactionAmount] = useState(0);
   const [message, setMessage] = useState("");
-
   const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
@@ -37,7 +36,7 @@ function TransactionForm({ setAddTransaction, setBalance }) {
 
       if (response.ok) {
         const data = await response.json();
-          setBalance(data.balance);        
+        setBalance(data.balance);
       } else {
         console.error(
           "Erreur lors de la récupération du budget. Réponse du serveur :",
@@ -75,8 +74,10 @@ function TransactionForm({ setAddTransaction, setBalance }) {
     );
 
     let jsonResponse = await result.json();
-    if (jsonResponse) {
+    if (jsonResponse.message == "Transaction ajoutée !") {
       fetchCurrentBalance();
+      setShowForm(false);
+      setMessage("");
     }
     setMessage(jsonResponse.message);
     setAddTransaction(true);
@@ -84,6 +85,7 @@ function TransactionForm({ setAddTransaction, setBalance }) {
 
   const toggleFormDisplay = () => {
     setShowForm(!showForm);
+    setMessage("");
   };
 
   return (
