@@ -5,7 +5,7 @@ import BalanceComponent from "./BalanceComponent";
 import BurgerMenu from "./BurgerMenu";
 import "../assets/css/Dashboard.css";
 
-function Dashboard({ balance, setBalance}) {
+function Dashboard({ balance, setBalance, transactions }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -15,14 +15,11 @@ function Dashboard({ balance, setBalance}) {
   return (
     <section className="dashboard">
       <h2>Dashboard</h2>
-      <BalanceComponent
-        balance={balance}
-        setBalance={setBalance}
-      />
+      <BalanceComponent balance={balance} setBalance={setBalance} />
       <BurgerMenu onClick={toggleMenu} />
       {isMenuOpen && (
         <>
-          <CategorySummary />
+          <CategorySummary transactions={transactions} />
           <BudgetTracker />
         </>
       )}

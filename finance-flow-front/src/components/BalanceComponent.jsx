@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../assets/css/BalanceComponent.css";
 
-const BalanceComponent = ({
-  balance,
-  setBalance
-}) => {
+const BalanceComponent = ({ balance, setBalance }) => {
   const [budgetSet, setBudgetSet] = useState(false);
 
   useEffect(() => {
@@ -86,7 +83,9 @@ const BalanceComponent = ({
         ) : (
           <div>
             <label htmlFor="amount" className="budget-label">
-              <p>Renseignez votre budget du mois : <br/><p></p></p>
+              <p>
+                Renseignez votre budget du mois : <br />
+              </p>
               <input
                 type="number"
                 id="amount"

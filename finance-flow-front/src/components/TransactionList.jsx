@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "../assets/css/TransactionList.css";
 
-function TransactionList({ setAddTransaction, addTransaction }) {
+function TransactionList({
+  updateTransactions, 
+  setAddTransaction,
+  addTransaction,
+}) {
   const [transactions, setTransactions] = useState([]);
   const [visibleTransactions, setVisibleTransactions] = useState(3);
 
@@ -14,6 +18,7 @@ function TransactionList({ setAddTransaction, addTransaction }) {
     if (response.ok) {
       const data = await response.json();
       setTransactions(data);
+      updateTransactions(data);
     } else {
       console.error(
         "Erreur lors de la récupération des transactions. Réponse du serveur :",
@@ -28,8 +33,8 @@ function TransactionList({ setAddTransaction, addTransaction }) {
   }, [addTransaction]);
 
   const formatDate = (dateString) => {
-    const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
-    return new Date(dateString).toLocaleDateString('fr-FR', options);
+    const options = { year: "numeric", month: "2-digit", day: "2-digit" };
+    return new Date(dateString).toLocaleDateString("fr-FR", options);
   };
 
   const showMoreTransactions = () => {

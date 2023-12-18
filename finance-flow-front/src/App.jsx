@@ -1,19 +1,18 @@
 // App.jsx
 import React, { useState } from "react";
 import Navbar from "./components/Navbar";
-import Dashboard from "./components/Dashboard";
-import TransactionForm from "./components/TransactionForm";
-import TransactionList from "./components/TransactionList";
+// import Dashboard from "./components/Dashboard";
+// import TransactionForm from "./components/TransactionForm";
+// import TransactionList from "./components/TransactionList";
 import LoginForm from "./components/LoginForm";
 import RegistrationForm from "./components/RegisterForm";
+import FinanceApp from "./components/FinanceApp";
 import "./App.css";
 import "./index.css";
 
 function App() {
   const [isConnected, setIsConnected] = useState(false);
   const [isRegistered, setIsRegistered] = useState(true);
-  const [addTransaction, setAddTransaction] = useState(false);
-  const [balance, setBalance] = useState(0);
 
   const handleSignUpClick = () => {
     setIsRegistered(false);
@@ -46,16 +45,7 @@ function App() {
               />
             ) : (
               <>
-                <Dashboard balance={balance} setBalance={setBalance} />
-                <TransactionForm
-                  setAddTransaction={setAddTransaction}
-                  balance={balance}
-                  setBalance={setBalance}
-                />
-                <TransactionList
-                  setAddTransaction={setAddTransaction}
-                  addTransaction={addTransaction}
-                />
+                <FinanceApp  />
               </>
             )}
           </>
