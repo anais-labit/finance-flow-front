@@ -8,57 +8,48 @@ function CategorySummary({ transactions }) {
     const canvas = document.getElementById("ctx");
     const ctx = canvas.getContext("2d");
 
-    console.log(transactions);
-
-    // Utiliser reduce pour effectuer les calculs
-    const result = transactions.reduce(
-      (acc, { subcategory_id, amount }) => {
-        // Vérifier si l'id est compris entre 1 et 8
-        if (subcategory_id >= 1 && subcategory_id <= 8) {
-          // Additionner le montant pour les id entre 1 et 8
-          acc.total += amount;
-        } else {
-          // Soustraire le montant pour les autres id
-          acc.total -= amount;
+    const groupedTransactions = transactions.reduce(
+      (acc, { subcategory_name, amount }) => {
+        if (!acc[subcategory_name]) {
+          acc[subcategory_name] = { total: 0, transactions: [] };
         }
+
+        acc[subcategory_name].total += amount;
+        acc[subcategory_name].transactions.push({ subcategory_name, amount });
 
         return acc;
       },
-      { total: 0 }
+      {}
     );
 
-    console.log("Résultat total :", result.total);
-
-    // Your chart data
-    const data = [
-      { year: 2010, count: 10 },
-      { year: 2011, count: 20 },
-      { year: 2012, count: 15 },
-      { year: 2013, count: 25 },
-      { year: 2014, count: 22 },
-      { year: 2015, count: 30 },
-      { year: 2016, count: 28 },
-    ];
+    // Extracting category labels and corresponding total amounts
+    const labels = Object.keys(groupedTransactions);
+    const data = labels.map(
+      (subcategory_name) => groupedTransactions[subcategory_name].total
+    );
 
     const chart = new Chart(ctx, {
-      type: "line",
+      type: "bar",
       data: {
+        labels: labels,
         datasets: [
           {
-            label: "Count",
+            label: "Total Amount",
             data: data,
-            borderColor: "rgb(75, 192, 192)",
-            fill: false,
+            backgroundColor: "rgba(75, 192, 192, 0.2)",
+            borderColor: "rgba(75, 192, 192, 1)",
+            borderWidth: 1,
           },
         ],
       },
       options: {
         scales: {
           x: {
-            type: "linear",
+            type: "category",
             position: "bottom",
           },
           y: {
+            beginAtZero: true,
             type: "linear",
             position: "left",
           },
@@ -83,7 +74,7 @@ function CategorySummary({ transactions }) {
     return () => {
       chart.destroy(); // Destroy the chart instance if the component is unmounted
     };
-  }, []); // Empty dependency array ensures that this effect runs once after the initial render
+  }, [transactions]);
 
   return (
     <div className="category-summary">
@@ -91,7 +82,6 @@ function CategorySummary({ transactions }) {
       <div style={{ width: "800px" }}>
         <canvas id="ctx"></canvas>
       </div>
-      {/* Display summary here */}
     </div>
   );
 }
