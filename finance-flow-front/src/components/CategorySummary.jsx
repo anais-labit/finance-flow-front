@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import Chart from "chart.js/auto";
-import { getRelativePosition } from "chart.js/helpers";
 import "../assets/css/CategorySummary.css";
 
 function CategorySummary({ transactions }) {
@@ -22,7 +21,6 @@ function CategorySummary({ transactions }) {
       {}
     );
 
-    // Extracting category labels and corresponding total amounts
     const labels = Object.keys(groupedTransactions);
     const data = labels.map(
       (subcategory_name) => groupedTransactions[subcategory_name].total
@@ -54,19 +52,7 @@ function CategorySummary({ transactions }) {
             position: "left",
           },
         },
-        onClick: (e) => {
-          const canvasPosition = getRelativePosition(e, chart);
-
-          const dataX = chart.options.scales.x.getValueForPixel(
-            canvasPosition.x
-          );
-          const dataY = chart.options.scales.y.getValueForPixel(
-            canvasPosition.y
-          );
-
-          console.log("Clicked dataX:", dataX);
-          console.log("Clicked dataY:", dataY);
-        },
+        
       },
     });
 
@@ -79,7 +65,7 @@ function CategorySummary({ transactions }) {
   return (
     <div className="category-summary">
       <h2>Summary by Category</h2>
-      <div style={{ width: "800px" }}>
+      <div style={{ width: "300px" }}>
         <canvas id="ctx"></canvas>
       </div>
     </div>
