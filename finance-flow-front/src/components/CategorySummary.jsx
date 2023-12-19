@@ -4,17 +4,21 @@ import "../assets/css/CategorySummary.css";
 
 function CategorySummary({ transactions }) {
   useEffect(() => {
-    const canvas = document.getElementById("ctx");
-    const ctx = canvas.getContext("2d");
+    const canvas = document.getElementById("ctx1");
+    const ctx1 = canvas.getContext("2d");
 
     const groupedTransactions = transactions.reduce(
-      (acc, { subcategory_name, amount }) => {
+      (acc, { subcategory_name, subcategory_id, amount }) => {
         if (!acc[subcategory_name]) {
           acc[subcategory_name] = { total: 0, transactions: [] };
         }
 
         acc[subcategory_name].total += amount;
-        acc[subcategory_name].transactions.push({ subcategory_name, amount });
+        acc[subcategory_name].transactions.push({
+          subcategory_name,
+          subcategory_id,
+          amount,
+        });
 
         return acc;
       },
@@ -26,7 +30,7 @@ function CategorySummary({ transactions }) {
       (subcategory_name) => groupedTransactions[subcategory_name].total
     );
 
-    const chart = new Chart(ctx, {
+    const chart1 = new Chart(ctx1, {
       type: "bar",
       data: {
         labels: labels,
@@ -34,9 +38,18 @@ function CategorySummary({ transactions }) {
           {
             label: "Total Amount",
             data: data,
-            backgroundColor: "rgba(75, 192, 192, 0.2)",
-            borderColor: "rgba(75, 192, 192, 1)",
-            borderWidth: 1,
+            backgroundColor: labels.map((subcategory_name) => {
+              const subcategory_id =
+                groupedTransactions[subcategory_name].transactions[0]
+                  .subcategory_id;
+
+              if (subcategory_id <= 8) {
+                return "rgba(255, 0, 0, 0.5)";
+              } else {
+                return "rgba(0, 255, 0, 0.4)";
+              }
+            }),
+            borderWidth: 3,
           },
         ],
       },
@@ -45,28 +58,37 @@ function CategorySummary({ transactions }) {
           x: {
             type: "category",
             position: "bottom",
+            grid: {
+              display: false,
+            },
           },
           y: {
             beginAtZero: true,
             type: "linear",
             position: "left",
+            stepSize: 1,
+            grid: {
+              display: false,
+            },
           },
         },
-        
+        plugins: {
+          legend: {
+            display: false,
+          },
+        },
       },
     });
 
-    // Cleanup function (optional)
     return () => {
-      chart.destroy(); // Destroy the chart instance if the component is unmounted
+      chart1.destroy();
     };
-  }, [transactions]);
+  }, []);
 
   return (
     <div className="category-summary">
-      <h2>Summary by Category</h2>
       <div style={{ width: "300px" }}>
-        <canvas id="ctx"></canvas>
+        <canvas id="ctx1"></canvas>
       </div>
     </div>
   );

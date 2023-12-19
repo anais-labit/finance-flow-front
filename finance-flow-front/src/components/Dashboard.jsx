@@ -20,7 +20,7 @@ function Dashboard({ balance, setBalance, transactions }) {
       {isMenuOpen && (
         <>
           <CategorySummary transactions={transactions} />
-          <BudgetTracker />
+          <BudgetTracker transactions={transactions} />
         </>
       )}
     </section>
