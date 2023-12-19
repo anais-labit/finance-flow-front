@@ -1,9 +1,5 @@
-// App.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "./components/Navbar";
-// import Dashboard from "./components/Dashboard";
-// import TransactionForm from "./components/TransactionForm";
-// import TransactionList from "./components/TransactionList";
 import LoginForm from "./components/LoginForm";
 import RegistrationForm from "./components/RegisterForm";
 import FinanceApp from "./components/FinanceApp";
@@ -13,6 +9,7 @@ import "./index.css";
 function App() {
   const [isConnected, setIsConnected] = useState(false);
   const [isRegistered, setIsRegistered] = useState(true);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   const handleSignUpClick = () => {
     setIsRegistered(false);
@@ -26,8 +23,25 @@ function App() {
     handleSignInClick();
   };
 
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <div className="App">
+      {!isMobile && (
+        <div className="warning-message">
+          This app is optimized for mobile use
+        </div>
+      )}
       <Navbar setIsConnected={setIsConnected} isConnected={isConnected} />
       <main>
         {!isRegistered ? (
@@ -45,7 +59,13 @@ function App() {
               />
             ) : (
               <>
-                <FinanceApp  />
+                {!isMobile ? (
+                  <div className="warning-message">
+                    This app is optimized for mobile use
+                  </div>
+                ) : (
+                  <FinanceApp />
+                )}
               </>
             )}
           </>

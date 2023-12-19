@@ -2,3 +2,11 @@
 .App {
   text-align: center;
 }
+
+.warning-message {
+  background-color: #ffcccb; 
+  color: #900c3f; 
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+}
